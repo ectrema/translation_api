@@ -1,4 +1,4 @@
-package router 
+package router
 
 import ( 
 	"github.com/gofiber/fiber/v2" 
@@ -22,8 +22,8 @@ func SetupRoutes(app *fiber.App) {
 	//Translations
 	internalTranslations := internal.Group("/translations") 
 	internalTranslations.Post("/", handler.CreateTranslation) 
-	internalTranslations.Put("/:appId/:keyId/:languageId", handler.UpdateTranslation) 
-	internalTranslations.Delete("/:appId/:keyId/:languageId", handler.DeleteTranslation) 
+	internalTranslations.Put("/:keyId/:languageId", handler.UpdateTranslation) 
+	internalTranslations.Delete("/:keyId/:languageId", handler.DeleteTranslation) 
 
 	//Languages
 	internalLanguages := internal.Group("/languages") 
