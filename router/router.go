@@ -9,10 +9,8 @@ func SetupRoutes(app *fiber.App) {
 	app.Use(middleware.Cors()) 
 
 	app.Get("/", handler.Slash)
-	 api := app.Group("/api") 
-	 api.Get("/healthcheck", handler.Hello)
-	//Internal
-	internal := app.Group("/internal", middleware.ValidateInternal()) 
+	api := app.Group("/api") 
+	api.Get("/healthcheck", handler.Hello)
 	
 	internalKeys := internal.Group("/keys") 
 	internalKeys.Post("/", handler.CreateKey) 
@@ -33,13 +31,11 @@ func SetupRoutes(app *fiber.App) {
 	//Translations
 	translations := api.Group("/translations") 
 	translations.Get("", handler.GetAllTranslations) 
-	translations.Get("/:appId/:keyId/:languageId", handler.GetTranslation)
+	translations.Get("/:keyId/:languageId", handler.GetTranslation)
 	//Languages
 	languages := api.Group("/languages") 
 	languages.Get("", handler.GetAllLanguages) 
-	languages.Get("/:id", handler.GetLanguage)
 	//Keys
 	keys := api.Group("/keys") 
 	keys.Get("", handler.GetAllKeys) 
-	keys.Get("/:id", handler.GetKey)
 }
